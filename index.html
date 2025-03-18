@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora Local</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 3rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="hora">Cargando...</div>
+
+    <script>
+        function actualizarHora() {
+            const ahora = new Date();
+            const hora = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+            document.getElementById("hora").innerText = `${hora}:${minutos}:${segundos}`;
+        }
+
+        setInterval(actualizarHora, 1000);
+        actualizarHora();
+    </script>
+</body>
+</html>
