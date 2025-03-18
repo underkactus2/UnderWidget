@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .pagination button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Galería de Imágenes</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <div class="pagination">
+        <button onclick="cambiarPagina(-1)">⏪ Anterior</button>
+        <span id="page-number">1</span>
+        <button onclick="cambiarPagina(1)">Siguiente ⏩</button>
+    </div>
+
+    <script>
+        const imagenes = [
+            'https://via.placeholder.com/300/FF5733', 'https://via.placeholder.com/300/33FF57',
+            'https://via.placeholder.com/300/3357FF', 'https://via.placeholder.com/300/FF33A1',
+            'https://via.placeholder.com/300/A133FF', 'https://via.placeholder.com/300/33FFA1',
+            'https://via.placeholder.com/300/FFD133', 'https://via.placeholder.com/300/FF5733',
+            'https://via.placeholder.com/300/33FF57', 'https://via.placeholder.com/300/3357FF'
+        ]; 
+
+        const imagenesPorPagina = 4;
+        let paginaActual = 1;
+
+        function mostrarGaleria() {
+            const inicio = (paginaActual - 1) * imagenesPorPagina;
+            const fin = inicio + imagenesPorPagina;
+            const imagenesPagina = imagenes.slice(inicio, fin);
+
+            const galeria = document.getElementById('gallery');
+            galeria.innerHTML = imagenesPagina.map(img => `<img src="${img}" alt="Imagen">`).join('');
+
+            document.getElementById('page-number').innerText = paginaActual;
+        }
+
+        function cambiarPagina(direccion) {
+            const totalPaginas = Math.ceil(imagenes.length / imagenesPorPagina);
+            paginaActual = Math.max(1, Math.min(paginaActual + direccion, totalPaginas));
+            mostrarGaleria();
+        }
+
+        mostrarGaleria();
+    </script>
+
+</body>
+</html>
